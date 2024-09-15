@@ -28,7 +28,7 @@
 ### Клонировать репозиторий и перейти в него в командной строке:
 
 ```
-git git@github.com:AndrewNemz/Re_Action_test.git
+git git@github.com:AndrewNemz/Quniq_test.git
 
 cd Quniq_test
 ```
@@ -49,4 +49,23 @@ source venv/bin/activate
 
 ```
 source venv/Scripts/activate
+```
+
+### Установить зависимости из файла requirements.txt:
+
+```
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### Запустить проект:
+
+```
+python -m uvicorn app.main:app --reload
+```
+
+### Документация проекта доступна по url:
+
+```
+  http://127.0.0.1:8000/docs/
 ```

@@ -5,6 +5,7 @@
 + Python 3.11
 + FATS API 
 + RESTApi
++ Redis
 + SQLite
 
 # Описание проекта Quniq_test

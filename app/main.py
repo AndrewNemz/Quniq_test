@@ -1,14 +1,16 @@
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import HTTPBasicCredentials, HTTPBasic
 from sqlalchemy.orm import Session
+from fastapi_cache.decorator import cache
 
 from app.models import sql_models, schemas
+from app.operations import app_cache
 from . import crud
 from app.database import SessionLocal, engine
 
 
 sql_models.Base.metadata.create_all(bind=engine)
-app = FastAPI()
+app = FastAPI(lifespan=app_cache.lifespan)
 security = HTTPBasic()
 
 
@@ -38,6 +40,7 @@ def auth_user(
 
 
 @app.post("/users/", response_model=schemas.User)
+@cache(expire=60)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     """
     Функция для регестрации нового пользователя.
@@ -94,6 +97,7 @@ def create_task_for_user(
 
 
 @app.get("/tasks/all/", response_model=list[schemas.Task])
+@cache(expire=60)
 def read_tasks(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
     Функция для просмотра всех задач.
